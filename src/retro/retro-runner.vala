@@ -280,6 +280,14 @@ public class Games.RetroRunner : Object, Runner {
 
 		core.init ();
 
+		string test = core.get_variables_interface("desmume_pointer_type");
+		stdout.printf ("desmume_pointer_type before setting , %s\n", test);
+
+		core.set_variables_interface("desmume_pointer_type","touch");
+
+		test = core.get_variables_interface("desmume_pointer_type");
+        stdout.printf ("desmume_pointer_type after setting , %s\n", test);
+
 		core.set_current_media (media_set.selected_media_number);
 	}
 

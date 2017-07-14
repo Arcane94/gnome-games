@@ -128,7 +128,7 @@
             "sources": [
                 {
                     "type": "git",
-                    "url": "https://git.gnome.org/browse/retro-gtk"
+                    "url": "https://github.com/Arcane94/retro-gtk"
                 }
             ]
         },

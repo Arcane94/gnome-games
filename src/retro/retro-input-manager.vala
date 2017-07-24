@@ -4,14 +4,24 @@ private class Games.RetroInputManager : Retro.InputDeviceManager, Retro.Rumble {
 	private Retro.VirtualGamepad keyboard;
 	private GamepadMonitor gamepad_monitor;
 	private Retro.InputDevice?[] input_devices;
+	private Retro.Pointer pointer;
+	private int pointer_port;
 	private int keyboard_port;
 	private bool present_analog_sticks;
 
 	public RetroInputManager (Gtk.Widget widget, bool present_analog_sticks) {
 		this.present_analog_sticks = present_analog_sticks;
 
+		pointer = new Retro.Pointer(widget);
+		pointer_port = input_devices.length;
+		input_devices += pointer;
+		set_controller_device (pointer_port, pointer);
+
 		keyboard = new Retro.VirtualGamepad (widget);
 		set_keyboard (new Retro.Keyboard (widget));
+		keyboard_port = input_devices.length;
+		input_devices += keyboard;
+		set_controller_device (keyboard_port, keyboard);
 
 		gamepad_monitor = GamepadMonitor.get_instance ();
 		gamepad_monitor.foreach_gamepad ((gamepad) => {
@@ -22,9 +32,6 @@ private class Games.RetroInputManager : Retro.InputDeviceManager, Retro.Rumble {
 			gamepad.unplugged.connect (() => handle_gamepad_unplugged (port));
 		});
 
-		keyboard_port = input_devices.length;
-		input_devices += keyboard;
-		set_controller_device (keyboard_port, keyboard);
 		gamepad_monitor.gamepad_plugged.connect (handle_gamepad_plugged);
 	}
 

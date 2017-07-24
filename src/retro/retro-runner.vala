@@ -279,7 +279,7 @@ public class Games.RetroRunner : Object, Runner {
 		core.set_medias (medias_uris);
 		core.init ();
 
-		if (core_source.get_platform () == "NintendoDS")
+		if ((core_source.get_platform () == "NintendoDS") && (core.get_variables_interface("desmume_pointer_type") != null))
 			core.set_variables_interface("desmume_pointer_type","touch");
 
 		core.set_current_media (media_set.selected_media_number);
